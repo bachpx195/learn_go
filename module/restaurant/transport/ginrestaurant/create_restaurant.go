@@ -1,6 +1,7 @@
 package ginrestaurant
 
 import (
+	"io/ioutil"
 	restaurantmodel "learn_go/module/restaurant/model"
 	"log"
 	"net/http"
@@ -15,10 +16,14 @@ func CreateRestaurant(db *gorm.DB) gin.HandlerFunc {
 
 		log.Println("test")
 		log.Println(data)
-		//body, _ := ioutil.ReadAll(c.Request.Body)
-		//log.Println(string(body))
+		body, _ := ioutil.ReadAll(c.Request.Body)
+		log.Println(string(body))
 
-		if err := c.ShouldBind(&data); err != nil {
+		err := c.ShouldBind(&data)
+
+		log.Println(err)
+
+		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})
@@ -36,8 +41,8 @@ func CreateRestaurant(db *gorm.DB) gin.HandlerFunc {
 		//	})
 		//}
 		//
-		//c.JSON(http.StatusOK, gin.H{
-		//	"data": data,
-		//})
+		c.JSON(http.StatusOK, gin.H{
+			"data": data,
+		})
 	}
 }

@@ -14,6 +14,7 @@ func main() {
 	dsn := "root:quachtinh95@tcp(127.0.0.1:3306)/learn_go?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
+	log.Println("hihi")
 	log.Println(err)
 
 	r := gin.Default()
